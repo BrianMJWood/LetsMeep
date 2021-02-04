@@ -12,27 +12,15 @@ export class AppComponent implements OnInit {
   title = 'LetsMeep!';
   users: any;
 
-  constructor(private http: HttpClient, private accountService: AccountService) {}
+  constructor(private accountService: AccountService) {}
 
   ngOnInit() {
-    this.getUsers();
     this.setCurrentUser();
   }
 
   setCurrentUser() {
     const user: User = JSON.parse(localStorage.getItem('user'));
     this.accountService.setCurrentUser(user);
-  }
-
-  async getUsers() {
-    await this.http.get('https://localhost:5001/api/users').subscribe(response => {
-      console.log(response);
-      this.users = response;
-      console.log(this.users);
-    }, error => {
-      console.log(error);
-    })
-    console.log(this.users);
   }
 
   display() {
